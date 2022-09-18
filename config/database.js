@@ -5,7 +5,7 @@ class Connection {
     constructor() {
         const url = config.MONGO_URL;
         mongoose.Promise = global.Promise;
-        this.connect(url, { useNewUrlParser:true, useUnifiedTopology:true }).then(() => {
+        this.connect(url, { useNewUrlParser:true, useUnifiedTopology:true, useCreateIndex: true, autoIndex: true }).then(() => {
             console.log('\x1b[30m%s\x1b[0m', '......................................................................................' );
             console.log('\x1b[30m%s\x1b[0m', '...................... ' , '\x1b[32m', 'D A T A B A S E  C O N N E C T E D', '\x1b[30m', ' ........................');
             console.log('\x1b[30m%s\x1b[0m', '......................................................................................' );
