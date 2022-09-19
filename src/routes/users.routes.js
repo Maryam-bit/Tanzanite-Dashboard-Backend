@@ -1,12 +1,9 @@
 import { Router } from 'express';
-import User from '../models/user.js';
-import * as UsersValidation from "../validations/users.validations.js";
-import Joi from "joi"
+import { createUser } from "../validations/users.validations.js";
 const router = Router();
+import validate from "../middlewares/validate.js"
+import * as usersController from "../controllers/users.controller.js"
 
-router.route("/signup").post((req, res) => {
-    console.log(UsersValidation.createUser)
-    UsersValidation.createUser.validate(req.body)
-})  
+router.route("/signup").post(validate(createUser), usersController.createUser)  
 
 export default router;
