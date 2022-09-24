@@ -24,7 +24,7 @@ export const signinUser = async (req, res) => {
         const user = await User.findOne({email: req.body.email})
         if(!user) res.status(400).send("User does not exists");
         else {
-            if(!req.body.password == user.password)
+            if(!(req.body.password == user.password))
                 res.status(400).send("wrong password");
             else {
                 const token = JsonWebToken.sign({id: user.id, email: user.email}, config.JWT_SECRET)
