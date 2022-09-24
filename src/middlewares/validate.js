@@ -10,7 +10,7 @@ const validate = (schema) => (req, res, next) => {
 
 	if (error) {
 		const errorMessage = error.details.map((details) => details.message).join(", ");
-		console.log(errorMessage, ";errorMessage")
+		res.status(404).send(errorMessage)
         return errorMessage;
 	}
 	Object.assign(req, value);
