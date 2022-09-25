@@ -4,6 +4,7 @@ import config from '../../config/config.js';
 import Bcrypt from "bcryptjs"
 
 export const createUser = async (req, res) => {
+    console.log(Bcrypt.hashSync(req.body.password , 10), 'hashh')
     const user = new User({
         username: req.body.username,
         email: req.body.email,
@@ -24,7 +25,7 @@ export const signinUser = async (req, res) => {
         const user = await User.findOne({email: req.body.email})
         if(!user) res.status(400).send("User does not exists");
         else {
-            if(!(req.body.password == user.password))
+            if(!(Bcrypt.compareSync(req.body.password, user.password)))
                 res.status(400).send("wrong password");
             else {
                 const token = JsonWebToken.sign({id: user.id, email: user.email}, config.JWT_SECRET)
